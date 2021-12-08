@@ -48,14 +48,14 @@ async function creationSection(){
 
         /*
         **Création de l'élément "article" 
-        **dans l'élément "a"
+        **Dans l'élément "a"
         */
         let articleProduit = document.createElement("article");
         lienProduit.appendChild(articleProduit);
 
         /*
         **Création de l'élément "img" 
-        **import de ça source et sont alt
+        **Import de ça source et sont alt
         **Dans l'élémént "article"
         */
         let imgProduit = document.createElement("img");
@@ -65,7 +65,7 @@ async function creationSection(){
 
         /*
         **Création de l'élément "h3" 
-        **import de son nom et ajout de sa classe "productName"
+        **Import de son nom et ajout de la classe "productName"
         **Dans l'élément "article"
         */
         let nomProduit = document.createElement("h3");
@@ -75,7 +75,7 @@ async function creationSection(){
         
         /*
         **Création de l'élément "p"
-        **import de la description et ajout de sa classe "productDescription"
+        **Import de la description et ajout de la classe "productDescription"
         **Dans l'élément "article"
         */ 
         let descriptionProduit = document.createElement("p");
