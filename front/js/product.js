@@ -107,7 +107,7 @@ function addToCart(produit) {
             //Initialisation du stockage local
             let produitLocalStorage = JSON.parse(localStorage.getItem("produit"));
 
-            //import dans le panier
+            //import dans le stockage local
             //Si le panier à déjà un produit
             if (produitLocalStorage) {
                 const resultatPanier = produitLocalStorage.find(
