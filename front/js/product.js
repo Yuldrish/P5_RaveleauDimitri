@@ -5,13 +5,14 @@ console.log(idProduit);
 let produit = "";
 
 const couleurChoisie = document.querySelector("#colors");
+const quantiterChoisie = document.querySelector("#quantity");
 
 
 getArticle();
 
 //Récuperation des produits API
 function getArticle() {
-    fetch("http://localhost:3000/api/products/" + idProduit)
+    fetch(`http://localhost:3000/api/products/${idProduit}`)
         .then((resultat) => {
             return resultat.json();
         })
@@ -49,4 +50,53 @@ function getPost(produit) {
         couleurProduit.value = couleurs;
         couleurProduit.innerHTML = couleurs;
     }
+    addToCart(produit)
+}
+
+//Gestion du choix du produit
+function addToCart(produit) {
+    const btn_EnvoiAuPanier = document.querySelector("#addToCart");
+
+    btn_EnvoiAuPanier.addEventListener("click", (event) => {
+        if (quantiterChoisie.value > 0 && quantiterChoisie.value <= 100 && quantiterChoisie.value != 0 ){
+
+            let choixCouleur = couleurChoisie.value;
+            let choixQuantiter = quantiterChoisie.value;
+
+            let optionsProduit = {
+                idProduit: idProduit,
+                couleurProduit: choixCouleur,
+                quantiterProduit: Number(choixQuantiter),
+                nomProduit: produit.name,
+                descriptionProduit: produit.description,
+                prixProduit: produit.price,
+                imgProduit: produit.imageUrl,
+                imgAltProduit: produit.altTxt,
+            };
+
+            let produitLocalStorage = JSON.parse(localStorage.getItem("produit"));
+
+            if (produitLocalStorage) {
+                const resultatPanier = produitLocalStorage.find(
+                    (element) => element.idProduit === idProduit && element.couleurProduit === choixCouleur);
+                    
+                    if (resultatPanier) {
+                        let nouvelleQuantiter =
+                        parseInt(optionsProduit.quantiterProduit) + parseInt(resultatPanier.quantiterProduit);
+                        resultatPanier.quantiterProduit = nouvelleQuantiter;
+                        localStorage.setItem("produit", JSON.stringify(produitLocalStorage));
+                        console.table(produitLocalStorage);
+                    } else {
+                        produitLocalStorage.push(optionsProduit);
+                        localStorage.setItem("produit", JSON.stringify(produitLocalStorage));
+                        console.table(produitLocalStorage);
+                    }
+            } else {
+                produitLocalStorage =[];
+                produitLocalStorage.push(optionsProduit);
+                localStorage.setItem("produit", JSON.stringify(produitLocalStorage));
+                console.table(produitLocalStorage);
+            }
+        }
+    });
 }
