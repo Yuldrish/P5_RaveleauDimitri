@@ -251,8 +251,10 @@ function getForm() {
     **creation des Regex
     **Text, Adresse, Email
     */
-    let textRegex = new RegExp("^[a-zA-Z .,'-]+$");
+    let prenomRegex = new RegExp("^[a-zA-Z .,'-]{1,50}+$");
+    let nomRegex = new RegExp("^[a-zA-Z .,'-]{1,50}+$");
     let adresseRegex = new RegExp("^[0-9]{1,3}(?:(?:[,. ]){1}[-a-zA-Zàâäéèêëïîôöùûüç]+)+$");
+    let villeRegex = new RegExp("^[0-9]{1,5}(?:(?:[,. ]){1}[-a-zA-Zàâäéèêëïîôöùûüç]+)+$");
     let emailRegex = new RegExp("^[a-zA-Z0-9._-]+[@]{1}[a-zA-Z0-9._-]+[.]{1}[a-z]{2,10}$");
 
     //Ecouter les modification
@@ -288,7 +290,7 @@ function getForm() {
     const validerFirstName = function(inputFirstName) {
         let firstNameMsgError = inputFirstName.nextElementSibling;
 
-        if(textRegex.test(inputFirstName.value)) {
+        if(prenomRegex.test(inputFirstName.value)) {
             firstNameMsgError.innerHTML = "";
         } else {
             firstNameMsgError.innerHTML = "Veuillez renseigner votre prenom";
@@ -302,7 +304,7 @@ function getForm() {
     const validerLastName = function(inputLastName) {
         let lastNameMsgError = inputLastName.nextElementSibling;
 
-        if(textRegex.test(inputLastName.value)) {
+        if(nomRegex.test(inputLastName.value)) {
             lastNameMsgError.innerHTML = "";
         } else {
             lastNameMsgError.innerHTML = "Veuillez renseigner votre Nom";
@@ -332,7 +334,7 @@ function getForm() {
     const validerCity = function(inputCity) {
         let cityMsgError = inputCity.nextElementSibling;
 
-        if(textRegex.test(inputCity.value)) {
+        if(villeRegex.test(inputCity.value)) {
             cityMsgError.innerHTML = "";
         } else {
             cityMsgError.innerHTML = "Veuillez renseigner votre ville";
