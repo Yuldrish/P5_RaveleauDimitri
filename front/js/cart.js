@@ -251,8 +251,8 @@ function getForm() {
     **creation des Regex
     **Text, Adresse, Email
     */
-    let prenomRegex = new RegExp("^[a-zA-Z .,'-]{1,50}+$");
-    let nomRegex = new RegExp("^[a-zA-Z .,'-]{1,50}+$");
+    let prenomRegex = new RegExp("^[a-zA-Z .,'-]+$");
+    let nomRegex = new RegExp("^[a-zA-Z .,'-]+$");
     let adresseRegex = new RegExp("^[0-9]{1,3}(?:(?:[,. ]){1}[-a-zA-Zàâäéèêëïîôöùûüç]+)+$");
     let villeRegex = new RegExp("^[0-9]{1,5}(?:(?:[,. ]){1}[-a-zA-Zàâäéèêëïîôöùûüç]+)+$");
     let emailRegex = new RegExp("^[a-zA-Z0-9._-]+[@]{1}[a-zA-Z0-9._-]+[.]{1}[a-z]{2,10}$");
