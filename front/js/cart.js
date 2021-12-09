@@ -172,7 +172,7 @@ function getTotals(){
     }
 
     let prixTotalProduit = document.getElementById("totalPrice");
-    prixTotalProduit.innerHTML = totalPrice;
+    prixTotalProduit.innerHTML = prixTotal;
     console.log(totalPrice);
 }
 
