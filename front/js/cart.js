@@ -317,7 +317,7 @@ function getForm() {
     const validerAddress = function(inputAddress) {
         let addressMsgError = inputAddress.nextElementSibling;
 
-        if(textRegex.test(inputAddress.value)) {
+        if(adresseRegex.test(inputAddress.value)) {
             addressMsgError.innerHTML = "";
         } else {
             addressMsgError.innerHTML = "Veuillez renseigner votre adresse";
@@ -347,7 +347,7 @@ function getForm() {
     const validerEmail = function(inputEmail) {
         let emailMsgError = inputEmail.nextElementSibling;
 
-        if(textRegex.test(inputEmail.value)) {
+        if(emailRegex.test(inputEmail.value)) {
             emailMsgError.innerHTML = "";
         } else {
             emailMsgError.innerHTML = "Veuillez renseigner votre email";
