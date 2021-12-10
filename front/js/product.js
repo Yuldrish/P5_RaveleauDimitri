@@ -78,14 +78,14 @@ function getPost(produit) {
 
 //Gestion du choix du produit
 function addToCart(produit) {
-    const btn_EnvoiAuPanier = document.querySelector("#addToCart");
+    const btn_envoiAuPanier = document.querySelector("#addToCart");
 
     /*
     **Ecouter le choix avec deux condition:
     **--Choix de la couleur non nulle
     **--Choix de la quantiter entre 1 et 100
     */
-    btn_EnvoiAuPanier.addEventListener("click", (event) => {
+    btn_envoiAuPanier.addEventListener("click", (event) => {
         if (quantiterChoisie.value > 0 && quantiterChoisie.value <= 100 && quantiterChoisie.value != 0 ){
 
             //Import du choix de la couleur et de la quantiter
@@ -107,11 +107,19 @@ function addToCart(produit) {
             //Initialisation du stockage local
             let produitLocalStorage = JSON.parse(localStorage.getItem("produit"));
 
+            ////////// Test popup //////////
+            const confirmationPopup = () => {
+                if (window.confirm(`Votre comande de ${choixQuantiter} ${produit.name} ${choixCouleur} à été ajouter au panier, 
+                Cliquer sur "OK" pour allez au panier.`)) {
+                    window.location.replace("http://127.0.0.1:5500/front/html/cart.html");
+                }
+            }
+
             //import dans le stockage local
             //Si le panier à déjà un produit
             if (produitLocalStorage) {
                 const resultatPanier = produitLocalStorage.find(
-                    (element) => element.idProduit === idProduit && element.couleurProduit === choixCouleur);
+                    (element) => element.idProduit === idProduit && element.couleurProduit === choixCouleur );
                     
                     //Si le produit commander est identique
                     if (resultatPanier) {
@@ -120,11 +128,13 @@ function addToCart(produit) {
                         resultatPanier.quantiterProduit = nouvelleQuantiter;
                         localStorage.setItem("produit", JSON.stringify(produitLocalStorage));
                         console.table(produitLocalStorage);
+                        confirmationPopup();
                      //Si le produit commander est différent
                     } else  {
                         produitLocalStorage.push(optionsProduit);
                         localStorage.setItem("produit", JSON.stringify(produitLocalStorage));
                         console.table(produitLocalStorage);
+                        confirmationPopup();
                     }
              //Si le panier est vide
             } else {
@@ -132,6 +142,7 @@ function addToCart(produit) {
                 produitLocalStorage.push(optionsProduit);
                 localStorage.setItem("produit", JSON.stringify(produitLocalStorage));
                 console.table(produitLocalStorage);
+                confirmationPopup();
             }
         }
     });
