@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", async (event) => {
   // Recuperation du dit produit via l'API
   const produit = await getArticle(idProduit);
   // Mise en place des elements html sur la page
-  getPost(produit);
+  initProductPage(produit);
 });
 
 //Récuperation des produits API
@@ -17,14 +17,14 @@ async function getArticle(idProduit) {
   const produit = await resultat.json();
   console.table(produit);
   // Le role principale de cette fonction devrait etre la recuperation du produit du backend.
-  // De ce fait il ne dois plus se charger d'appeler la fonction getPost() qui lui se charge de la creation des elements de la page.
+  // De ce fait il ne dois plus se charger d'appeler la fonction initProductPage() qui lui se charge de la creation des elements de la page.
   return produit;
 }
 
 // Création des éléments de la page.
 // Je pense qu'il faut changer le nom de cette fonction. Il n'est pas tres explicite
 // Un nom approprié pourrait etre "initProductPage()"
-function getPost(produit) {
+function initProductPage(produit) {
   /*
    **Création de l'élément "img"
    **Import de ça source et sont alt
@@ -90,7 +90,7 @@ function addToCart(produit) {
   if (choixQuantiter > 0 && choixQuantiter <= 100 && choixCouleur != "") {
     // Import des options du produit choisi
     let optionsProduit = {
-      idProduit: idProduit,
+      idProduit: produit._id,
       couleurProduit: choixCouleur,
       quantiterProduit: Number(choixQuantiter),
       nomProduit: produit.name,
@@ -118,7 +118,7 @@ function addToCart(produit) {
     if (produitLocalStorage) {
       const resultatPanier = produitLocalStorage.find(
         (element) =>
-          element.idProduit === idProduit &&
+          element.idProduit === produit._id &&
           element.couleurProduit === choixCouleur
       );
       // Si le produit commander est identique
@@ -144,6 +144,14 @@ function addToCart(produit) {
       localStorage.setItem("produit", JSON.stringify(produitLocalStorage));
       console.table(produitLocalStorage);
       confirmationPopup();
+    }
+  } // Message d'alerte si la quantiter ou la couleur est null
+  else {
+    if (choixCouleur == "") {
+      alert("Veuillez choisir une couleur.");
+    }
+    if (choixQuantiter <= 0 || choixQuantiter > 100) {
+      alert("Veuillez choisir une quantité comprise entre 1 et 100.");
     }
   }
 }
